@@ -43,7 +43,7 @@ for url in urls:
                 plt.axis('off')
                 if image_data.ndim == 2:  
                     plt.imshow(image_data, cmap='gray')
-                elif image_data.ndim == 3:
+                if image_data.ndim == 3:
                     plt.imshow(image_data[0, :, :], cmap='gray', origin='lower')               
                 plt.show()
             else:
