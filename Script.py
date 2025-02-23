@@ -1,6 +1,7 @@
 # Import packages
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 import requests
 from io import BytesIO
 from astroquery.cadc import Cadc
@@ -44,7 +45,11 @@ for url in urls:
                 if image_data.ndim == 2:  
                     plt.imshow(image_data, cmap='gray')
                 if image_data.ndim == 3:
-                    plt.imshow(image_data[0, :, :], cmap='gray', origin='lower')               
+                    fig, ax = plt.subplots()
+                    ax.axis('off')
+                    def update(frame):
+                        ax.imshow(image_data[frame, :, :], cmap='gray', origin='lower')
+                    ani = animation.FuncAnimation(fig, update, frames=image_data.shape[0], interval=200, repeat=True)
                 plt.show()
             else:
                 print('No image data found in extension 1.')
